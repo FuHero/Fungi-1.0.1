@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="fungi" default="all">
+  
+  
+  <property file="fungi.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.tox/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/access-bridge-64.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunmscapi.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_aopalliance:aopalliance:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.lmax:disruptor:3.3.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-codec:commons-codec:1.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.6/commons-codec-1.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-httpclient:commons-httpclient:3.0.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_commons-logging:commons-logging:1.0.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.inject:javax.inject:1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.servlet.jsp:jsp-api:2.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.servlet:jstl:1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/jstl/1.2/jstl-1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_javax.servlet:servlet-api:2.5.classpath">
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+  </path>
+  
+  <path id="library.maven:_junit:junit:4.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/junit/junit/4.7/junit-4.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_log4j:log4j:1.2.15.classpath">
+    <pathelement location="${path.variable.maven_repository}/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
+  </path>
+  
+  <path id="library.maven:_mysql:mysql-connector-java:5.1.16.classpath">
+    <pathelement location="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.16/mysql-connector-java-5.1.16.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.aspectj:aspectjrt:1.6.10.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/aspectj/aspectjrt/1.6.10/aspectjrt-1.6.10.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.jackson:jackson-core-lgpl:1.9.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-lgpl/1.9.7/jackson-core-lgpl-1.9.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.codehaus.jackson:jackson-mapper-lgpl:1.9.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-lgpl/1.9.7/jackson-mapper-lgpl-1.9.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mybatis:mybatis-spring:1.2.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mybatis/mybatis-spring/1.2.2/mybatis-spring-1.2.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.mybatis:mybatis:3.2.7.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/mybatis/mybatis/3.2.7/mybatis-3.2.7.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:jcl-over-slf4j:1.6.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-api:1.6.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.slf4j:slf4j-log4j12:1.6.6.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.6.6/slf4j-log4j12-1.6.6.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-aop:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-aop/4.0.6.RELEASE/spring-aop-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-beans:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-beans/4.0.6.RELEASE/spring-beans-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-context:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-context/4.0.6.RELEASE/spring-context-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-core:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-core/4.0.6.RELEASE/spring-core-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-expression:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-expression/4.0.6.RELEASE/spring-expression-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-jdbc:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-jdbc/4.0.6.RELEASE/spring-jdbc-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-test:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-test/4.0.6.RELEASE/spring-test-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-tx:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-tx/4.0.6.RELEASE/spring-tx-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-web:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-web/4.0.6.RELEASE/spring-web-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.springframework:spring-webmvc:4.0.6.release.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-webmvc/4.0.6.RELEASE/spring-webmvc-4.0.6.RELEASE.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/module_fungi.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.fungi, clean.artifact.fungi:war_exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.fungi" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.fungi:war" value="${basedir}/target"/>
+    <property name="artifact.output.fungi:war_exploded" value="${basedir}/target/fungi-1.0.0-BUILD-SNAPSHOT"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.fungi-1.0.0-BUILD-SNAPSHOT.war" value="${artifacts.temp.dir}/fungi-1.0.0-BUILD-SNAPSHOT.war"/>
+  </target>
+  
+  <target name="clean.artifact.fungi:war_exploded" description="clean fungi:war exploded artifact output">
+    <delete dir="${artifact.output.fungi:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.fungi:war" depends="init.artifacts, artifact.fungi:war_exploded" description="Build &#39;fungi:war&#39; artifact">
+    <property name="artifact.temp.output.fungi:war" value="${artifacts.temp.dir}/fungi_war"/>
+    <mkdir dir="${artifact.temp.output.fungi:war}"/>
+    <zip destfile="${temp.jar.path.fungi-1.0.0-BUILD-SNAPSHOT.war}">
+      <zipfileset dir="${artifact.temp.output.fungi:war_exploded}"/>
+    </zip>
+    <copy file="${temp.jar.path.fungi-1.0.0-BUILD-SNAPSHOT.war}" tofile="${artifact.temp.output.fungi:war}/fungi-1.0.0-BUILD-SNAPSHOT.war"/>
+  </target>
+  
+  <target name="artifact.fungi:war_exploded" depends="init.artifacts, compile.module.fungi" description="Build &#39;fungi:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.fungi:war_exploded}"/>
+    <mkdir dir="${artifact.output.fungi:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.fungi:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.fungi:war_exploded}/WEB-INF/classes">
+      <fileset dir="${fungi.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.fungi:war_exploded}/WEB-INF/lib"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-context/4.0.6.RELEASE/spring-context-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-context-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-aop/4.0.6.RELEASE/spring-aop-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-aop-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-beans/4.0.6.RELEASE/spring-beans-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-beans-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-core/4.0.6.RELEASE/spring-core-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-core-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-expression/4.0.6.RELEASE/spring-expression-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-expression-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-webmvc/4.0.6.RELEASE/spring-webmvc-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-webmvc-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-web/4.0.6.RELEASE/spring-web-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-web-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/aspectj/aspectjrt/1.6.10/aspectjrt-1.6.10.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/aspectjrt-1.6.10.jar"/>
+    <copy file="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/slf4j-api-1.6.6.jar"/>
+    <copy file="${path.variable.maven_repository}/org/slf4j/jcl-over-slf4j/1.6.6/jcl-over-slf4j-1.6.6.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/jcl-over-slf4j-1.6.6.jar"/>
+    <copy file="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.6.6/slf4j-log4j12-1.6.6.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/slf4j-log4j12-1.6.6.jar"/>
+    <copy file="${path.variable.maven_repository}/log4j/log4j/1.2.15/log4j-1.2.15.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/log4j-1.2.15.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/inject/javax.inject/1/javax.inject-1.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/javax.inject-1.jar"/>
+    <copy file="${path.variable.maven_repository}/javax/servlet/jstl/1.2/jstl-1.2.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/jstl-1.2.jar"/>
+    <copy file="${path.variable.maven_repository}/com/lmax/disruptor/3.3.0/disruptor-3.3.0.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/disruptor-3.3.0.jar"/>
+    <copy file="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-lgpl/1.9.7/jackson-mapper-lgpl-1.9.7.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/jackson-mapper-lgpl-1.9.7.jar"/>
+    <copy file="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-lgpl/1.9.7/jackson-core-lgpl-1.9.7.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/jackson-core-lgpl-1.9.7.jar"/>
+    <copy file="${path.variable.maven_repository}/org/mybatis/mybatis/3.2.7/mybatis-3.2.7.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/mybatis-3.2.7.jar"/>
+    <copy file="${path.variable.maven_repository}/org/mybatis/mybatis-spring/1.2.2/mybatis-spring-1.2.2.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/mybatis-spring-1.2.2.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-jdbc/4.0.6.RELEASE/spring-jdbc-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-jdbc-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-tx/4.0.6.RELEASE/spring-tx-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-tx-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/org/springframework/spring-test/4.0.6.RELEASE/spring-test-4.0.6.RELEASE.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/spring-test-4.0.6.RELEASE.jar"/>
+    <copy file="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.16/mysql-connector-java-5.1.16.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/mysql-connector-java-5.1.16.jar"/>
+    <copy file="${path.variable.maven_repository}/commons-codec/commons-codec/1.6/commons-codec-1.6.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/commons-codec-1.6.jar"/>
+    <copy file="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.0.1/commons-httpclient-3.0.1.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/commons-httpclient-3.0.1.jar"/>
+    <copy file="${path.variable.maven_repository}/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/lib/commons-logging-1.0.3.jar"/>
+    <mkdir dir="${artifact.output.fungi:war_exploded}/META-INF"/>
+    <copy file="${basedir}/target/fungi-1.0.0-BUILD-SNAPSHOT/META-INF/MANIFEST.MF" tofile="${artifact.output.fungi:war_exploded}/META-INF/MANIFEST.MF"/>
+    <copy todir="${artifact.output.fungi:war_exploded}">
+      <fileset dir="${basedir}/src/main/webapp"/>
+    </copy>
+    <mkdir dir="${artifact.output.fungi:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/src/main/webapp/WEB-INF/web.xml" tofile="${artifact.output.fungi:war_exploded}/WEB-INF/web.xml"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.fungi:war, artifact.fungi:war_exploded" description="Build all artifacts">
+    <mkdir dir="${artifact.output.fungi:war}"/>
+    <copy todir="${artifact.output.fungi:war}">
+      <fileset dir="${artifact.temp.output.fungi:war}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
