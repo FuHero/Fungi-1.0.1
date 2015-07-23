@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+    <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+    <configuration>  
+        <typeAliases>  
+            <typeAlias alias="Bill" type="com.ikwang.fungi.model.Bill"/>  
+            <typeAlias alias="Account" type="com.ikwang.fungi.model.Account"/>  
+            <typeAlias alias="Transaction" type="com.ikwang.fungi.model.Transaction"/>  
+            <typeAlias alias="IKwangEvent" type="com.ikwang.fungi.model.IKwangEvent"/>  
+   			 <typeAlias alias="AppDef" type="com.ikwang.fungi.model.AppDef"/>  
+        </typeAliases>  
+        <mappers>  
+            <mapper resource="maps/Bill.xml" />  
+            <mapper resource="maps/Account.xml" />  
+            <mapper resource="maps/Transaction.xml" />  
+            <mapper resource="maps/IKwangEvent.xml" />  
+            <mapper resource="maps/AppDef.xml" />  
+        </mappers>  
+    </configuration>    

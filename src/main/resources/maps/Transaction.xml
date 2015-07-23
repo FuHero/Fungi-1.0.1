@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ikwang.fungi.dao.ITransactionDAO">
+	<resultMap type="Transaction" id="transaction_resultmap">
+		<id 	property="id" 		column="ID" 		javaType="Long" jdbcType="BIGINT"   />
+		<result property="amount" 		column="AMOUNT" 		javaType="Double" jdbcType="DOUBLE"/>
+		<result property="currency" 		column="CURRENCY" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="referenceId" 		column="REFERENCE_ID"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="type" 		column="TYPE"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="paymentMethod" 		column="PAYMENT_METHOD"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="payerAccount" 		column="PAYER_ACCOUNT" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="payerId" 		column="PAYER_ID"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="payeeAccount" 		column="PAYEE_ACCOUNT" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="payeeId" 		column="PAYEE_ID"  		javaType="String" jdbcType="VARCHAR"/>
+	<result property="remark" 		column="REMARK"  		javaType="String" jdbcType="VARCHAR"/>
+	<result property="status" 		column="STATUS"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="creationTime" 	column="CREATION_TIME"  	javaType="Date"/>
+ 		<result property="closeTime" 	column="CLOSE_TIME"  	javaType="Date" />
+	</resultMap>
+
+
+
+
+	<insert id="create" parameterType="Transaction" useGeneratedKeys="true" keyColumn="ID" keyProperty="id">
+
+		INSERT INTO TRANSACTION (ID,AMOUNT,CURRENCY,REFERENCE_ID,TYPE,PAYER_ACCOUNT,PAYER_ID,PAYEE_ACCOUNT
+		,PAYEE_ID,REMARK,STATUS,PAYMENT_METHOD,CREATION_TIME,CLOSE_TIME)
+		VALUES (#{id},#{amount},#{currency},#{referenceId},#{type},#{payerAccount},
+		 #{payerId},#{payeeAccount},#{payeeId},#{remark},#{status},#{paymentMethod},#{creationTime},#{closeTime}
+		)
+	</insert>
+	<select id="search" resultMap="transaction_resultmap" parameterType="Map">
+		select * from TRANSACTION 
+		 <where>  
+        <if test="payerId!=null and payerId != ''">  
+         AND  PAYER_ID = #{payerId} 
+        </if>  
+        <if test="payeeId!=null and payeeId != ''">  
+          AND PAYEE_ID = #{payeeId} 
+        </if> 
+        <if test="payerAccount!=null and payerAccount != ''">  
+         AND  PAYER_ACCOUNT = #{payerAccount} 
+        </if>  
+        <if test="payeeAccount!=null and payeeAccount != ''">  
+          AND PAYEE_ACCOUNT = #{payeeAccount} 
+        </if> 
+        <if test="referenceId!= null and referenceId!= '' ">  
+            AND REFERENCE_ID = #{referenceId} 
+        </if>  
+        <if test="type > 0 ">  
+            AND TYPE = #{type} 
+        </if>  
+        <if test="status !=null ">  
+            AND STATUS IN <foreach collection="status" open="(" close=")" item="ob" separator=",">#{ob}</foreach>
+        </if>  
+    </where>  
+    <if test="ORDERBY != null">
+    	ORDER BY <foreach collection="ORDERBY" item="ob" separator=",">#{ob}</foreach>
+    </if>
+    <if test="START != null and START >= 0 ">
+    	LIMIT #{START},#{LIMIT}
+    </if>
+   		
+   		
+	</select>
+	 <select id="getById" resultMap="transaction_resultmap" resultType="Transaction" parameterType="Long">
+			SELECT * FROM TRANSACTION WHERE id = #{id}
+	</select>
+	
+		<update id="update"  parameterType="Map">
+		UPDATE TRANSACTION
+		<set>
+		<if test="closeTime != null">
+				CLOSE_TIME = #{closeTime},
+		</if>
+			<if test="status > 0">
+				STATUS = #{status}
+			</if>
+		</set>
+		<where>
+			ID = #{id}
+		</where>
+	</update>
+	
+</mapper>  

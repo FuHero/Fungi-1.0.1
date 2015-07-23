@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/ikwang/fungi/service/IBillService.java=UTF-8
+encoding//src/main/java/com/ikwang/fungi/service/impl/BillService.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/pay.jsp=UTF-8
+encoding//src/test/java/com/ikwang/fungi/dao/test/AccountDAOTest.java=UTF-8
+encoding//src/test/java/com/ikwang/fungi/dao/test/AccountServiceTest.java=UTF-8
+encoding//src/test/java/com/ikwang/fungi/dao/test/BillServiceTest.java=UTF-8
+encoding//src/test/java/com/ikwang/fungi/dao/test/IKwangEventServiceTest.java=UTF-8

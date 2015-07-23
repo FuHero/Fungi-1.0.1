@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	 xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+			 http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+
+		<tx:annotation-driven />
+	<context:component-scan base-package="com.ikwang.fungi" />
+	
+		<context:property-placeholder location="classpath:mysql.properties" />
+
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/ikwang?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="root" />
+	</beans:bean>
+<beans:bean id="digitalSigner" class="com.ikwang.fungi.coder.MD5AESDigitalSigner"/>	
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+<beans:bean id="idGenerator" class="com.ikwang.fungi.util.IDGenerator"/>
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="configLocation" value="classpath:mybatis-config.xml" />
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<beans:property name="annotationClass" value="org.springframework.stereotype.Repository" />
+		<beans:property name="basePackage" value="com.ikwang.fungi.dao" />
+		<beans:property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</beans:bean>
+	<beans:bean id="exceptionInterpreter" class="com.ikwang.fungi.service.DefaultExceptionInterpreter"/>
+<beans:bean id="billService" class="com.ikwang.fungi.service.impl.BillService" autowire="byType">
+ 
+</beans:bean>
+	<!-- Converter -->
+	<beans:bean id="responseSerializer" class="com.ikwang.fungi.converter.SerializerGroup">
+		<beans:constructor-arg>
+			<util:list value-type="com.ikwang.fungi.IResponseSerializer">
+
+				<beans:bean class="com.ikwang.fungi.converter.JsonSerializer" />
+			</util:list>
+		</beans:constructor-arg>
+	</beans:bean>
+	<!-- Parser -->
+	<beans:bean id="requestParser" class="com.ikwang.fungi.parser.DefaultRequestParser" />
+<beans:bean id="billRequestHandler" class="com.ikwang.fungi.handler.BillHandler"/>
+<beans:bean id="iKwangEventService" class="com.ikwang.fungi.service.impl.IKwangEventService"/>
+<beans:bean id="signatureValidator" class="com.ikwang.fungi.validator.SignatureValidator"></beans:bean>
+<beans:bean id="accountService" class="com.ikwang.fungi.service.impl.AccountService"/>
+</beans:beans>

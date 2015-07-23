@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ikwang.fungi.dao.IAccountDAO">
+	<resultMap type="Account" id="account_resultmap">
+		<id 	property="id" 		column="ID" 		javaType="String" jdbcType="CHAR"   />
+		<result property="balance" 		column="BALANCE" 		javaType="Double" jdbcType="DECIMAL"/>
+		<result property="remark" 		column="remark" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="name" 		column="NAME"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="type" 		column="TYPE"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="cell" 		column="PHONE"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="email" 		column="EMAIL"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="status" 		column="STATUS"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="creationTime" 	column="CREATION_TIME"  	javaType="Date"/>
+	</resultMap>
+
+
+
+
+	<insert id="create" parameterType="Account">
+
+		INSERT INTO ACCOUNT (ID,BALANCE,REMARK,NAME,TYPE,STATUS,PHONE,EMAIL,CREATION_TIME)
+		VALUES (#{id},#{balance},#{remark},#{name},#{type},#{status},#{cell},#{email},#{creationTime}
+		)
+	</insert>
+		 <select id="getById" resultType="Account" parameterType="String">
+			SELECT * FROM ACCOUNT WHERE id = #{id}
+	</select>
+	<update id="update"  parameterType="Map">
+		UPDATE ACCOUNT
+		<set>
+			<if test="deposit !=null">
+				BALANCE = BALANCE + #{deposit},
+			</if>
+			<if test="status > 0">
+				STATUS = #{status},
+			</if>
+		</set>
+		<where>
+			ID = #{id}
+		</where>
+	</update>
+</mapper>  

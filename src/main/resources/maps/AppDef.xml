@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ikwang.fungi.dao.IAppDefDAO">
+	<resultMap type="AppDef" id="appdef_resultmap">
+		<id 	property="id" 		column="ID" 		javaType="Long" jdbcType="BIGINT"   />
+		<result property="appKey" 		column="APP_KEY" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="privateKey" 		column="PRIVATE_KEY"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="publicKey" 		column="PUBLIC_KEY"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="customPublicKey" 		column="CUSTOM_PUBLIC_KEY"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="name" 		column="NAME" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="description" 		column="DESCRIPTION"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="type" 		column="TYPE"  		javaType="Integer" jdbcType="INTEGER"/>
+	</resultMap>
+
+
+
+
+	<insert id="create" parameterType="AppDef" useGeneratedKeys="true" keyColumn="ID" keyProperty="id">
+
+		INSERT INTO APPDEF (APP_KEY,PRIVATE_KEY,PUBLIC_KEY,NAME,DESCRIPTION,TYPE)
+		VALUES (#{appKey},#{privateKey},#{publicKey},#{name},#{description},#{type}
+		)
+	</insert>
+
+	 <select id="getById" resultMap="appdef_resultmap" resultType="AppDef" parameterType="String">
+			SELECT * FROM APPDEF WHERE APP_KEY = #{id}
+	</select>
+	
+	
+</mapper>  

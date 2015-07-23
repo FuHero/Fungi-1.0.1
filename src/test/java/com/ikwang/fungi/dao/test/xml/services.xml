@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	default-autowire="byName">
+	<!-- Validator -->
+	<bean id="emptyRequestValidator" class="com.ikwang.fungi.validator.EmptyValidator" />
+
+	<!-- Parser -->
+	<bean id="requestParser" class="com.ikwang.fungi.parser.DefaultRequestParser" />
+	<!-- Handlers -->
+	<bean id="testHandler" class="com.ikwang.fungi.handler.TestHandler" />
+	<bean id="apiHandler" class="com.ikwang.fungi.handler.HandlerFactory">
+
+		<constructor-arg>
+			<util:map key-type="java.lang.String" value-type="com.ikwang.fungi.IRequestHandler">
+				<entry key="test" value-ref="testHandler">
+					
+				</entry>
+				<entry
+					key="api.bill.search,api.bill.pay,api.bill.create,api.bill.refund,api.bill.release,api.bill.cancel"
+					value-ref="billRequestHandler" />
+				<entry
+					key="api.account.search,api.account.deposit,api.account.create,api.account.transfer,api.account.withdraw,api.account.addwithdrawaccount"
+					value-ref="accountRequestHandler" />
+				<entry
+					key="api.event.search,api.event.deposit,api.event.create,api.event.close,api.account.reward,api.account.release"
+					value-ref="eventRequestHandler" />
+				<entry key="api.transaction.search" value-ref="transactionRequestHandler" />
+			</util:map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="digitalSigner" class="com.ikwang.fungi.coder.MD5AESDigitalSigner" />
+	<bean id="requestValidator" class="com.ikwang.fungi.validator.ValidatorGroup">
+		<constructor-arg>
+			<util:list value-type="com.ikwang.fungi.IRequestValidator">
+				<bean class="com.ikwang.fungi.validator.SignatureValidator" />
+				<bean class="com.ikwang.fungi.validator.TimestampValidator" />
+			</util:list>
+		</constructor-arg>
+	</bean>
+	<!-- Converter -->
+	<bean id="responseSerializer" class="com.ikwang.fungi.converter.SerializerGroup">
+		<constructor-arg>
+			<util:list value-type="com.ikwang.fungi.IResponseSerializer">
+
+				<bean class="com.ikwang.fungi.converter.JsonSerializer" />
+			</util:list>
+		</constructor-arg>
+	</bean>
+	<bean id="exceptionInterpreter" class="com.ikwang.fungi.service.DefaultExceptionInterpreter" />
+	<bean id="billService" class="com.ikwang.fungi.service.impl.BillService"
+		autowire="byType">
+
+	</bean>
+	<bean id="billRequestHandler" class="com.ikwang.fungi.handler.BillHandler" />
+	<bean id="accountRequestHandler" class="com.ikwang.fungi.handler.AccountHandler" />
+	<bean id="eventRequestHandler" class="com.ikwang.fungi.handler.IKwangEventHandler" />
+	<bean id="transactionRequestHandler" class="com.ikwang.fungi.handler.TransactionHandler" />
+	<bean id="idGenerator" class="com.ikwang.fungi.util.IDGenerator" />
+	<bean id="accountService" class="com.ikwang.fungi.service.impl.AccountService" />
+	<bean id="iKwangEventService" class="com.ikwang.fungi.service.impl.IKwangEventService" />
+
+</beans>

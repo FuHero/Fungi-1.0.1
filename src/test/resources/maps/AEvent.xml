@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ikwang.fungi.dao.IIKwangEventDAO">
+	<resultMap type="IKwangEvent" id="IKwangEvent_resultmap">
+		<id 	property="id" 		column="ID" 		javaType="String" jdbcType="CHAR"   />
+		<result property="amount" 		column="AMOUNT" 		javaType="Double" jdbcType="DOUBLE"/>
+		<result property="remark" 		column="remark" 		javaType="String" jdbcType="VARCHAR"/>
+		<result property="name" 		column="NAME"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="type" 		column="TYPE"  		javaType="String" jdbcType="VARCHAR"/>
+		<result property="status" 		column="STATUS"  		javaType="int" jdbcType="INTEGER"/>
+		<result property="deposit" 		column="DEPOSIT" 		javaType="Double" jdbcType="DOUBLE"/>
+		<result property="frozen" 		column="FROZEN" 		javaType="Double" jdbcType="DOUBLE"/>
+		<result property="rewarded" 		column="REWARDED" 		javaType="Double" jdbcType="DOUBLE"/>
+	</resultMap>
+
+
+
+
+	<insert id="create" parameterType="IKwangEvent">
+
+		INSERT INTO IKwangEvent (ID,AMOUNT,REMARK,NAME,TYPE,STATUS,DEPOSIT,FROZEN,REWARDED)
+		VALUES (#{id},#{amount},#{remark},#{name},#{type},#{status},#{deposit},#{frozen},#{rewarded}
+		)
+	</insert>
+	<select id="search" resultType="IKwangEvent" parameterType="String">
+			SELECT * FROM IKwangEvent WHERE id = #{id}
+	</select>
+	<update id="update" parameterType="IKwangEvent">
+		UPDATE IKwangEvent 
+		<set> 
+		<if test="amount > 0">
+			AMOUNT = #{amount}
+		</if>
+		<if test="status > 0">
+			STATUS = #{status}
+		</if>
+		<if test="deposit > 0">
+			DEPOSIT = #{deposit}
+		</if>
+		<if test="frozen > 0">
+			FROZEN = #{frozen}
+		</if>
+		<if test="rewarded > 0">
+			REWARDED = #{rewarded}
+		</if>
+		</set>
+		<where>
+			ID = #{id}
+		</where>
+	</update>
+</mapper>  
