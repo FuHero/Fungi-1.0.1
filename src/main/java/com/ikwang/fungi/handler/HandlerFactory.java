@@ -11,6 +11,7 @@ import com.ikwang.fungi.model.Response;
 public class HandlerFactory  extends HandlerBase {
 
 	private Map<String,IRequestHandler> handlers=new HashMap<String,IRequestHandler>();
+
 	public HandlerFactory(Map<String,IRequestHandler> map) {
 		for (Entry<String, IRequestHandler> entry : map.entrySet()) {
 			String[] methods=entry.getKey().split(",");

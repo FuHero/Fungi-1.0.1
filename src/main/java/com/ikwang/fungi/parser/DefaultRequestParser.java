@@ -45,6 +45,7 @@ public class DefaultRequestParser implements IRequestParser {
 	}
 	//a simple cache for appdef
 	private Map<String,AppDef> simpleCache=new HashMap<String,AppDef>();
+
 	protected AppDef getAppDef(String key){
 		if(StringUtils.isEmpty(key))
 			return null;

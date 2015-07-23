@@ -31,8 +31,7 @@ import com.ikwang.fungi.util.UnknowExceptionCollector;
 
 @Controller
 public class APIController {
-	private static final Logger logger = LoggerFactory
-			.getLogger(APIController.class);
+	private static final Logger logger = LoggerFactory.getLogger(APIController.class);
 
 	@Autowired(required = false)
 	@Qualifier("preHandler")
@@ -65,7 +64,7 @@ public class APIController {
 			request = requestParser.parse(web);
 
 			Response response = processRequest(request);
-			ret = responseSerializer.serialize(response, request,request.getFormat());
+			ret = responseSerializer.serialize(response, request, request.getFormat());
 			if (logger.isInfoEnabled()) {
 				logger.info("[REQUEST]process finished, request:" + request
 						+ ",response:" + ret);

@@ -9,11 +9,10 @@ import java.io.Serializable;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonWriteNullProperties;
-@SuppressWarnings("deprecation")
-public class Response
-    implements Serializable
-{
 
+@SuppressWarnings("deprecation")
+public class Response implements Serializable
+{
     public String toString()
     {
         return (new StringBuilder("Response [status=")).append(status).append(", message=").append(message).append(", value=").append(value).append("]").toString();
