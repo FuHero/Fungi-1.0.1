@@ -1,12 +1,12 @@
 package com.ikwang.fungi.dao.test;
 
-import java.awt.datatransfer.StringSelection;
-import java.security.GeneralSecurityException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
+import com.ikwang.fungi.IDigitalSigner.KeyPair;
+import com.ikwang.fungi.IRequestValidator;
+import com.ikwang.fungi.coder.MD5AESDigitalSigner;
+import com.ikwang.fungi.coder.MD5DigitalSigner;
+import com.ikwang.fungi.coder.RSADigitalSigner;
+import com.ikwang.fungi.model.Response;
+import com.ikwang.fungi.util.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +15,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import com.ikwang.fungi.IDigitalSigner;
-import com.ikwang.fungi.IDigitalSigner.KeyPair;
-import com.ikwang.fungi.IRequestValidator;
-import com.ikwang.fungi.coder.MD5AESDigitalSigner;
-import com.ikwang.fungi.coder.MD5DigitalSigner;
-import com.ikwang.fungi.coder.RSACoder;
-import com.ikwang.fungi.coder.RSADigitalSigner;
-import com.ikwang.fungi.model.Response;
-import com.ikwang.fungi.util.Util;
+import java.security.GeneralSecurityException;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = "test-context.xml")
 public class RequestValidatorTest {

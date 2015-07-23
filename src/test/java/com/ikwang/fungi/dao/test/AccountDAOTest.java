@@ -1,26 +1,16 @@
 package com.ikwang.fungi.dao.test;
 
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-
+import com.ikwang.fungi.IIDGenerator;
+import com.ikwang.fungi.dao.IAccountDAO;
+import com.ikwang.fungi.model.Account;
+import com.ikwang.fungi.model.UpdateParam;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.ikwang.fungi.IIDGenerator;
-import com.ikwang.fungi.dao.IAccountDAO;
-import com.ikwang.fungi.dao.IBillDAO;
-import com.ikwang.fungi.model.Account;
-import com.ikwang.fungi.model.Bill;
-import com.ikwang.fungi.model.UpdateParam;
-import com.ikwang.fungi.model.search.BillSearch;
-import com.ikwang.fungi.model.search.SearchBase;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = "test-context.xml")
